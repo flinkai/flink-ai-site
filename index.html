@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flink AI International Limited</title>
+    <meta name="description" content="Quantitative trading technology, monitoring, and analytics services for institutional clients. Hong Kong based.">
+    <style>
+        :root {
+            --purple: #9B2D8B;
+            --purple-dark: #7A2370;
+            --teal: #00C9B1;
+            --teal-dark: #00A896;
+            --orange: #F5A623;
+            --white: #FFFFFF;
+            --gray-50: #F8F9FA;
+            --gray-100: #F0F0F0;
+            --gray-600: #555;
+            --gray-800: #2D2D2D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(255,255,255,0.97);
+            border-bottom: 1px solid var(--gray-100);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gray-800);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span:first-child { color: var(--teal); }
+        .logo-text span:last-child { color: var(--gray-800); }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--purple);
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 55%;
+            height: 120%;
+            background: var(--purple);
+            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+
+        .hero-accent {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 35%;
+            height: 40%;
+            background: var(--teal);
+            clip-path: polygon(40% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 2;
+            opacity: 0.85;
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+            position: relative;
+            z-index: 3;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 24px;
+            max-width: 560px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--purple);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--gray-600);
+            max-width: 480px;
+            margin-bottom: 36px;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--purple);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .hero-cta:hover {
+            background: var(--purple-dark);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--teal-dark);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin-bottom: 56px;
+            line-height: 1.7;
+        }
+
+        /* SERVICES */
+        .services {
+            background: var(--gray-50);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px 32px;
+            border: 1px solid var(--gray-100);
+            transition: box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .service-card:nth-child(1) .service-icon { background: rgba(155,45,139,0.1); }
+        .service-card:nth-child(2) .service-icon { background: rgba(0,201,177,0.12); }
+        .service-card:nth-child(3) .service-icon { background: rgba(245,166,35,0.12); }
+
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: var(--gray-600);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ABOUT */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            padding: 20px 0;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--purple);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-top: 4px;
+        }
+
+        .about-text p {
+            color: var(--gray-600);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        /* CLIENTS */
+        .clients {
+            background: var(--gray-50);
+        }
+
+        .client-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .client-type {
+            padding: 32px 24px;
+            background: var(--white);
+            border-radius: 10px;
+            border: 1px solid var(--gray-100);
+            text-align: center;
+        }
+
+        .client-type h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .client-type p {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* CONTACT */
+        .contact {
+            background: var(--purple);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact .section-label {
+            color: var(--teal);
+        }
+
+        .contact .section-title {
+            color: var(--white);
+        }
+
+        .contact-accent {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 100%;
+            background: var(--teal);
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 20% 100%);
+            opacity: 0.15;
+        }
+
+        .contact-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .contact-item h4 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .contact-item p, .contact-item a {
+            font-size: 17px;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 32px 24px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--gray-600);
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-100);
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hero-bg {
+                width: 100%;
+                height: 35%;
+                top: auto;
+                bottom: 0;
+                clip-path: polygon(0 30%, 100% 0, 100% 100%, 0% 100%);
+            }
+
+            .hero-accent {
+                display: none;
+            }
+
+            .hero-inner {
+                padding: 100px 24px 200px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+        }
+
+        /* LOGO SVG INLINE */
+        .logo-svg-line { stroke: var(--teal); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+        .logo-dot-orange { fill: var(--orange); }
+        .logo-dot-teal { fill: var(--teal); }
+        .logo-dot-purple { fill: var(--purple); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="logo">
+            <svg class="logo-mark" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                <polyline class="logo-svg-line" points="4,28 12,20 22,24 32,8" />
+                <circle class="logo-dot-teal" cx="12" cy="20" r="3" />
+                <circle class="logo-dot-purple" cx="22" cy="24" r="3" />
+                <circle class="logo-dot-orange" cx="32" cy="8" r="3.5" />
+            </svg>
+            <span class="logo-text"><span>Flink</span><span> AI</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-accent"></div>
+    <div class="hero-inner">
+        <h1>Trading Technology <span class="highlight">&</span> Operations for Institutional Clients</h1>
+        <p>Engineering, monitoring, and analytics services for digital-asset and multi-strategy trading firms. Based in Hong Kong, serving clients globally.</p>
+        <a href="#contact" class="hero-cta">Get in Touch</a>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+    <div class="section-inner">
+        <p class="section-label">Services</p>
+        <h2 class="section-title">What We Do</h2>
+        <p class="section-subtitle">Three core service lines designed for institutional trading operations that demand reliability, speed, and precision.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9B2D8B" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <h3>Engineering &amp; Performance</h3>
+                <p>Low-latency trading infrastructure: exchange connectivity adapters, market data handlers, execution components, latency profiling, and reliability hardening. C++ and related tooling.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00A896" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>Monitoring &amp; Incident Response</h3>
+                <p>Asian-hours coverage (08:00-20:00 HKT) from our Hong Kong office. Alert triage, runbook-based response, escalation, incident documentation, and periodic reporting.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <h3>Execution Optimization Analytics</h3>
+                <p>Quantitative analytics and indicators for execution quality improvement: liquidity regime detection, anomaly detection, and microstructure-aware recommendations. Delivered as non-discretionary research outputs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+    <div class="section-inner">
+        <div class="about-grid">
+            <div>
+                <p class="section-label">About</p>
+                <h2 class="section-title">Institutional-Grade Expertise</h2>
+                <div class="about-text">
+                    <p>Flink AI International Limited is a Hong Kong-based quantitative trading technology and operations services firm. We serve overseas institutional clients across the US, Canada, Europe, and Israel.</p>
+                    <p>Founded by Daniel Egloff, with over 25 years of experience across quantitative finance, trading technology, and exchange environments, including mission-critical trading and risk system design at leading digital-asset and traditional finance institutions.</p>
+                </div>
+            </div>
+            <div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Years in quantitative finance &amp; trading technology</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Companies founded (Switzerland &amp; Hong Kong)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12h</div>
+                        <div class="stat-label">Daily Asian-hours monitoring coverage</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">HK</div>
+                        <div class="stat-label">Based in Hong Kong, serving clients globally</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients" id="clients">
+    <div class="section-inner">
+        <p class="section-label">Clients</p>
+        <h2 class="section-title">Who We Serve</h2>
+        <p class="section-subtitle">We work with institutional trading operations that require reliable technology, monitoring coverage, and quantitative analytics.</p>
+        <div class="client-types">
+            <div class="client-type">
+                <h4>Proprietary Trading Firms</h4>
+                <p>Digital-asset market makers and prop trading desks requiring low-latency infrastructure and 24/7 operational coverage.</p>
+            </div>
+            <div class="client-type">
+                <h4>Hedge Funds</h4>
+                <p>Digital-asset and multi-strategy funds seeking engineering support, monitoring, and execution optimization analytics.</p>
+            </div>
+            <div class="client-type">
+                <h4>Brokers &amp; Venues</h4>
+                <p>Execution venues and brokers requiring performance optimization, system reliability, and operational monitoring.</p>
+            </div>
+            <div class="client-type">
+                <h4>Market Infrastructure</h4>
+                <p>Exchange and infrastructure participants needing engineering and operational support for mission-critical systems.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <div class="contact-accent"></div>
+    <div class="section-inner contact-inner">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let's Talk</h2>
+        <div class="contact-details">
+            <div class="contact-item">
+                <h4>Email</h4>
+                <p><a href="mailto:daniel@flink.ai">daniel@flink.ai</a></p>
+            </div>
+            <div class="contact-item">
+                <h4>Location</h4>
+                <p>Hong Kong</p>
+            </div>
+            <div class="contact-item">
+                <h4>Coverage Hours</h4>
+                <p>08:00 &ndash; 20:00 HKT<br>Monday &ndash; Friday</p>
+            </div>
+            <div class="contact-item">
+                <h4>Company</h4>
+                <p>Flink AI International Limited<br>Hong Kong incorporated</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2025 Flink AI International Limited. All rights reserved.
+</footer>
+
+</body>
+</html>
